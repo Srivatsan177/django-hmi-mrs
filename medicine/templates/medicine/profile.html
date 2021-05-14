@@ -1,0 +1,49 @@
+{% extends 'medicine/layout.html' %}
+{% load static %}
+{% block content %}
+<div class="container">
+    <h2 class="text-center">Your Profile</h2>
+    
+    <div class="text-center">
+        {% if user.profile.gender == 0 %}
+        <img id="img" src="{% static 'images/male_profile.png' %}" class="img-fluid text-center"
+            style="width: 10rem; height: 10rem;" alt="">
+        {% else %}
+        <img id="img" src="{% static 'images/female_profile.png' %}" class="img-fluid text-center"
+            style="width: 10rem; height: 10rem;" alt="">
+        {% endif %}
+    </div>
+    <form action="" method="POST">
+        {% csrf_token %}
+        <div class="form-group m-2">
+            <label for="">Name</label>
+            <input type="text" name="name" class="form-control" value="{{user.profile.name}}">
+        </div>
+        <div class="form-group m-2 d-inline">
+            <label for="">Gender</label>
+            <input id="radio0" type="radio" name="gender" value="0"> Male
+            <input id="radio1" type="radio" name="gender" value="1"> Female
+        </div>
+        <div class="form-group m-2">
+            <label for="">Age</label>
+            <input type="number" name="age" value="{{user.profile.age}}" class="form-control" id="">
+        </div>
+        <div class="form-group m-2">
+            <label for="">Email</label>
+            <input type="email" name="email" value="{{user.email}}" class="form-control" id="">
+        </div>
+        <input type="submit" value="Update Profile" class="btn btn-success">
+    </form>
+    <script>
+        $('#radio{{user.profile.gender}}').prop('checked', true);
+        $('input[type=radio][name=gender]').change(function () {
+            if (this.value == '0') {
+                $('#img').attr('src', '{% static "images/male_profile.png" %}')
+            }
+            else if (this.value == '1') {
+                $('#img').attr('src', '{% static "images/female_profile.png" %}')
+            }
+        });
+    </script>
+</div>
+{% endblock %}

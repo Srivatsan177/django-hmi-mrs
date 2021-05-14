@@ -1,0 +1,43 @@
+{% extends 'medicine/layout.html' %}
+{% load static %}
+{% block content %}
+<div class="container">
+    <h2 class="text-center">Registration</h2>
+    <img id="img" src="{% static 'images/male_profile.png' %}" class="img-fluid" alt="">
+    <form action="" method="post" autocomplete="off">
+        {% csrf_token %}
+        <div class="form-group m-2">
+            <label for="gender">Select Gender: </label>
+            <input type="radio" name="gender" value="0"> Male
+            <input type="radio" name="gender" value="1"> Female
+        </div>
+        <div class="form-group m-2">
+            <label for="name">Name</label>
+            <input type="text" class="form-control" name="name" id="name" placeholder="Enter your name eg. John Doe">
+        </div>
+        <div class="form-group m-2">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" name="email" id="email" placeholder="Enter Your email eg. john.doe@gmail.com">
+        </div>
+        <div class="form-group m-2">
+            <label for="age">Age</label>
+            <input type="number" class="form-control" name="age" placeholder="Enter Age">
+        </div>
+        <div class="form-group m-2">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" name="password" id="password">
+        </div>
+        <input type="submit" class="btn btn-primary">
+    </form>
+</div>
+<script>
+    $('input[type=radio][name=gender]').change(function () {
+        if (this.value == '0') {
+            $('#img').attr('src', '{% static "images/male_profile.png" %}')
+        }
+        else if (this.value == '1') {
+            $('#img').attr('src', '{% static "images/female_profile.png" %}')
+        }
+    });
+</script>
+{% endblock %}
